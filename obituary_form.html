@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Obituary Platform">
+    <meta name="description" content="Submit and view obituaries online.">
+    <meta name="keywords" content="obituaries, memorial, tribute, SEO, social media">
+    <title>Obituary App</title>
+    <style>
+        body{
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+        }
+        form{
+            margin-left: 40px;
+            margin-top: 30px;
+        }
+        label{
+            padding: 10px;
+            color: #B784A7;
+            font-size: 18px;
+        }
+        input{
+            padding: 5px;
+            margin: 10px 8px;
+            width: 210px;
+            color: #A14189;
+            font-size:16px;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+        }
+        textarea{
+            padding: 5px;
+            margin: 10px 8px;
+            color: #A397B4;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+            line-height: 13px;
+        }
+        a{
+            margin-left: 40px;
+            text-decoration: none;
+            color: #A8516E;
+            font-weight: bold;
+            padding: 10px;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+            font-size: 17px;
+        }
+    </style>
+    
+  
+</head>
+<body>
+    <form method="POST" action="{% url 'submit_obituary' %}" onsubmit="return validateForm()" id="obituaryForm">
+        {% csrf_token %}
+        <label for="name">NAME OF DECEASED:</label>
+        <input type="text" id="name" name="name" ><br>
+        
+        <label for="date_of_birth">DATE OF BIRTH:</label>
+        <input type="date" id="date_of_birth" name="date_of_birth" required><br>
+        
+        <label for="date_of_death">DATE OF DEATH:</label>
+        <input type="date" id="date_of_death" name="date_of_death" required><br>
+        
+        <label for="content">DESCRIPTION OF THE DECEASED:</label><br>
+        <textarea id="content" name="content" style="height: 70px; width: 350px"></textarea><br>
+        
+        <label for="author">AUTHOR:</label>
+        <input type="text" id="author" name="author" ><br>
+        <input type="submit" value="SUBMIT">
+      </form>
+
+      <a href="{% url 'view_obituaries' %}" class="button">RETRIEVE</a>
+
+      <!--DISPLAYS THE MESSAGE DEFINED IN views.url TO SHOW SUCCESSFUL SUBMISSION OF DATA-->
+      {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+       
+</body>
+
+<script>
+    //Form Validation
+    function validateForm(){
+        var name = document.forms['obituaryForm']['name'].value;
+        var date_of_birth = document.forms['obituaryForm']['date_of_birth'].value;
+        var date_of_death = document.forms['obituaryForm']['date_of_death'].value;
+        var author = document.forms['obituaryForm']['author'].value;
+        var content = document.forms['obituaryForm']['content'].value;
+
+        if (name == null || name == "") {
+            alert("FILL IN THE NAME FIELD");
+            return false;
+        }
+        if (date_of_birth == null) {
+            alert("INSERT DATE OF BIRTH");
+            return false;
+        }
+        if (date_of_death == null) {
+            alert("INSERT DATE OF DEATH");
+            return false;
+        }
+        if(new Date(date_of_death) < new Date(date_of_birth)){
+            alert("DATE OF DEATH IS EARLIER THAN DATE OF BIRTH!");
+            return false;
+        }
+        if (content == null || content == "") {
+            alert("DESCRIPTION OF DECEASED IS BLANK!");
+            return false;
+        }
+        if (author == null || author == "") {
+            alert("INSERT NAME OF AUTHOR");
+            return false;
+        }
+        return true;
+    }
+</script>
+</html>

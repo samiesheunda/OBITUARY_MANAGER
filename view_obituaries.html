@@ -1,0 +1,38 @@
+<!--DISPLAY INFORMATION AFTER PRESSING THE RETRIEVE BUTTON-->
+<!--STYLE THIS FORMMMMMMMMM!!!!-->
+
+
+<html >
+<head>
+    <title>RETRIEVAL FORMt</title>
+</head>
+<body>
+    <table>
+        <tr>
+          <th>Name</th>
+          <th>Date of Birth</th>
+          <th>Date of Death</th>
+          <th>Content</th>
+          <th>Author</th>
+          <th>Submission Date</th>
+        </tr>
+        {% for obituary in obituaries %}
+        <tr>
+          <td>{{ obituary.name }}</td>
+          <td>{{ obituary.date_of_birth }}</td>
+          <td>{{ obituary.date_of_death }}</td>
+          <td>{{ obituary.content }}</td>
+          <td>{{ obituary.author }}</td>
+          <td>{{ obituary.submission_date }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+
+      <!--ADDING THE SHARE TO SOCIAL MEDIA OPTIONS...?-->
+      <div>
+        <a href="http://www.facebook.com/sharer.php?u=http://yourdomain.com" target="_blank">SHARE TO FACEBOOK</a>
+        <a href="http://twitter.com/share?url=http://yourdomain.com&text=Check out this obituary" target="_blank">SHARE ON X</a>
+      </div>
+      
+</body>
+</html>  
